@@ -44,39 +44,22 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <img src="admin/assets/images/products/s4.jpg" class="card-img-top"
-                                                alt="admin.">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Card title</h5>
-                                                <p class="card-text">Some quick example text to build on the card title
-                                                    and
-                                                    make up the bulk of
-                                                    the
-                                                    card's content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    @foreach ($mesaj as $gelenmesaj)
+                                        <div class="col-md-4">
+                                            <div class="card">
+                                                <img src="images/gondericigorselleri/{{ $gelenmesaj->gonderici_gorseli }}"
+                                                    style="height: 300px;" class="card-img-top" alt="admin.">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        {{ $gelenmesaj->gonderici_adi . ' ' . $gelenmesaj->gonderici_soyadi }}
+                                                    </h5>
+                                                    <p class="card-text">{{ $gelenmesaj->gonderici_mesaji }}</p>
+                                                    <p class="card-text">E posta: {{ $gelenmesaj->gonderici_email }}</p>
+                                                    <a href="#" class="btn btn-primary">Sil</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <img src="admin/assets/images/products/s4.jpg" class="card-img-top"
-                                                alt="admin.">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Card title</h5>
-                                                <p class="card-text">Some quick example text to build on the card title
-                                                    and
-                                                    make up the bulk of
-                                                    the
-                                                    card's content.</p>
-                                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

@@ -14,9 +14,6 @@ use App\Http\Controllers\YoneticiController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/', [AnasayfaController::class,'anasayfa'])->name('anasayfa');
 
@@ -25,6 +22,8 @@ Route::get('yaptigim-isler', [AnasayfaController::class,'yaptigimisler'])->name(
 Route::get('hakkimda', [AnasayfaController::class,'hakkimda'])->name('hakkimda');
 
 Route::get('iletisim', [AnasayfaController::class,'iletisim'])->name('iletisim');
+
+Route::post('gelenmesaj', [AnasayfaController::class,'gelenmesaj'])->name('gelenmesaj');
 
 Route::get('referanslar', [AnasayfaController::class,'referanslar'])->name('referanslar');
 

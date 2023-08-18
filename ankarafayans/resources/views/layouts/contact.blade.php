@@ -112,31 +112,39 @@
                             </div>
                         </div>
 
-                        <form>
+                        <form action="{{ route('gelenmesaj') }}" method="post" enctype="multipart/form-data">
+
+                            @csrf
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="fname">Adınız</label>
-                                        <input type="text" class="form-control" id="fname">
+                                        <input type="text" class="form-control" name="gonderici_adi">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="lname">Soyadınız</label>
-                                        <input type="text" class="form-control" id="lname">
+                                        <input type="text" class="form-control" name="gonderici_soyadi">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="text-black" for="email">E-Posta Adresiniz</label>
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" class="form-control" name="gonderici_email">
                             </div>
 
                             <div class="form-group">
                                 <label class="text-black" for="message">Mesajınız</label>
-                                <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
+                                <textarea name="gonderici_mesaji" class="form-control" cols="30" rows="5"></textarea>
                             </div>
 
+                            <div class="card card-body">
+                                <label>Görsel Seç : (Varsa)</label>
+                                <input type="file" name="gonderici_gorseli">
+                            </div>
+                            <br>
                             <button type="submit" class="btn btn-primary-hover-outline">Mesajı Gönder</button>
                         </form>
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Fayans;
 
 use App\Models\Seramik;
@@ -14,38 +16,86 @@ use App\Models\Tuvalet;
 
 use App\Models\Referanslar;
 
+use App\Models\GelenMesaj;
+
 class YoneticiController extends Controller
 {
 
     function giris()
     {
-        return view('admin.home');
+
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+            {
+                $gelenmesajlar = GelenMesaj::all();
+                return view('admin.home', compact('gelenmesajlar'));
+            }
+            else
+            {
+                return redirect()->route('anasayfa');
+            }
     }
 
     function fayansekleme()
     {
-        return view('admin.fayansekle');
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+        {
+            return view('admin.fayansekle');
+        }
+        else
+        {
+            return redirect()->route('anasayfa');
+        }
+
     }
 
     function seramikekleme()
     {
-        return view('admin.seramikekle');
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+        {
+            return view('admin.seramikekle');
+        }
+        else
+        {
+            return redirect()->route('anasayfa');
+        }
     }
 
     function banyoekleme()
     {
-        return view('admin.banyoekle');
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+        {
+            return view('admin.banyoekle');
+        }
+        else
+        {
+            return redirect()->route('anasayfa');
+        }
     }
 
     function tuvaletekleme()
     {
-        return view('admin.tuvaletekle');
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+        {
+            return view('admin.tuvaletekle');
+        }
+        else
+        {
+            return redirect()->route('anasayfa');
+        }
     }
 
     function referansekleme()
     {
-        return view('admin.referansekle');
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+        {
+            return view('admin.referansekle');
+        }
+        else
+        {
+            return redirect()->route('anasayfa');
+        }
     }
+
 
     public function fayanseklendi(Request $fayansbilgileri)
     {

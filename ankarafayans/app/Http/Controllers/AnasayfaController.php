@@ -18,6 +18,10 @@ use App\Models\Banyo;
 
 use App\Models\Referanslar;
 
+use App\Models\GelenMesaj;
+
+
+
 class AnasayfaController extends Controller
 {
     public function anasayfa()
@@ -50,9 +54,19 @@ class AnasayfaController extends Controller
         return view('layouts.references', compact('referanslar'));
     }
 
+
+
     public function girisekrani()
     {
-        return view('auth.login');
+        if ( Auth::check() && Auth::user()->kullanici_turu == 1 )
+            {
+                return redirect()->route('yonet');
+            }
+            else
+            {
+                return view('auth.login');
+            }
+
     }
 
     public function yonet()
@@ -61,13 +75,40 @@ class AnasayfaController extends Controller
 
         if($kullanici_turu=='1')
         {
-            return view('admin.home');
+            $mesaj = GelenMesaj::all();
+
+            return view('admin.home', compact('mesaj'));
+
         }
 
         else
         {
-            return view('theme.master');
+            return redirect()->route('anasayfa');
         }
+    }
+
+    public function gelenmesaj(Request $gelenmesaj)
+    {
+        $mesaj = new GelenMesaj;
+
+        $mesaj->gonderici_adi=$gelenmesaj->gonderici_adi;
+
+        $mesaj->gonderici_soyadi=$gelenmesaj->gonderici_soyadi;
+
+        $mesaj->gonderici_email=$gelenmesaj->gonderici_email;
+
+        $mesaj->gonderici_mesaji=$gelenmesaj->gonderici_mesaji;
+
+        if($gelenmesaj->hasFile('gonderici_gorseli')){
+            $gonderici_gorseli = $gelenmesaj->file('gonderici_gorseli');
+            $gondericigorselismi = $gonderici_gorseli->getClientOriginalName();
+            $gonderici_gorseli->move('images/gondericigorselleri', $gondericigorselismi);
+            $mesaj->gonderici_gorseli = $gondericigorselismi;
+        }
+
+        $mesaj->save();
+
+        return redirect()->back()->with('message','Görsel Başarıyla Eklendi');
     }
 
 }
